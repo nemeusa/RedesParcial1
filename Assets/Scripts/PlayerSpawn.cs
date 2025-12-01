@@ -26,38 +26,25 @@ public class PlayerSpawn : SimulationBehaviour, IPlayerJoined
 
         if (player == Runner.LocalPlayer)
         {
-            if (currentClients < 2) //Si somos el primer nos guardamos el indice de la posicion en la que va a spawnear.
+            if (currentClients < 2) 
             {
                 _myIndex = currentClients - 1;
                 _initialized = true;
             }
-            else //Si ya somos el segundo cliente entrante
+            else 
             {
-                //Si hay mas jugadores que puntos de spawn, retorno
+               
                 if (Runner.SessionInfo.PlayerCount > _spawnPoints.Length) return;
 
                 CreatePlayer(currentClients - 1);
             }
-
-            #region CameraTarget (hecho en el player)
-            //var newPlayer = Runner.Spawn(_playerPrefab, new Vector3(Random.Range(-2f, 2f), 1, 0), Quaternion.identity);
-
-            //var cam = Camera.main;
-
-            //if (cam.TryGetComponent(out CameraFollow component))
-            //{
-            //    component.SetTarget(newPlayer.transform);
-            //}
-            #endregion
         }
     }
 
     void CreatePlayer(int spawnIndex)
     {
-        //Obtengo el punto de spawn
         var spawnPoint = _spawnPoints[spawnIndex];
 
-        //Instantiate NO
         Runner.Spawn(_playerPrefab, spawnPoint.position, spawnPoint.rotation);
     }
 }
